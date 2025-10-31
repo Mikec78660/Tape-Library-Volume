@@ -8,6 +8,16 @@ This SWIFT-TLC software solves this limitation. SWIFT-TLC allows using a tape li
 The aim of the TLC is to make all specific behavior of a tape library completely transparent to SWIFT (that’s why we call it connector). This ensures that there are no SWIFT modifications necessary to add tape storage to a SWIFT Cluster. The SWIFT TLC storage node uses exactly the same interface (Rest API) as a standard SWIFT storage node. 
 All SWIFT features like ring controlled data placement, SWIFT policies, replication, auditing are fully supported.
 
+## Requirements
+- python3-pip
+- libboost-all-dev
+- libmariadb-dev
+
+One-liner to install all requirements:
+```bash
+sudo apt-get update && sudo apt-get install -y python3-pip libboost-all-dev libmariadb-dev
+```
+
 Get started:
 ------------
 Evaluation
@@ -36,4 +46,3 @@ Contact:
 Andreas Kleber,
 andreas.kleber@bdt.de,
 +49 (151) 148650 65
-
