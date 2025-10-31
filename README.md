@@ -1,12 +1,10 @@
-# SWIFT-TLC
-OpenStack SWIFT Object Storage Tape Library Connector
+# Tape Library as a Volume
 
-What is it?
------------
-Modern cloud storage architectures like OpenStack SWIFT Object Storage do not natively support Tape Storage Media and Tape Libraries as storage targets.
-This SWIFT-TLC software solves this limitation. SWIFT-TLC allows using a tape library as storage target for an SWIFT object storage node. It is possible to extend existing SWIFT cluster by adding tape storage or building new SWIFT tape based object storages as well.
-The aim of the TLC is to make all specific behavior of a tape library completely transparent to SWIFT (that’s why we call it connector). This ensures that there are no SWIFT modifications necessary to add tape storage to a SWIFT Cluster. The SWIFT TLC storage node uses exactly the same interface (Rest API) as a standard SWIFT storage node. 
-All SWIFT features like ring controlled data placement, SWIFT policies, replication, auditing are fully supported.
+## What is it?
+This repo attempts to create a single mountable volume of a tape library. Using the fuse file system and a separate cache and meta data directory, an entire tape library will be mounted as a single volume to the OS.
+
+### Inspiration:
+This repo is based on the repo [SWIFT-TLC](https://github.com/BDT-GER/SWIFT-TLC). I had used a portion of the repo and it worked great but unfortunately doesn't seem to be maintained anymore and it is written for very old libraries and python versions. So this is my attempt to adapt it to Debian 13 and python3.10 and use the ltfs software from this repo [ltfs](https://github.com/LinearTapeFileSystem/ltfs).
 
 ## Requirements
 - python3-pip
@@ -18,31 +16,23 @@ One-liner to install all requirements:
 sudo apt-get update && sudo apt-get install -y python3-pip libboost-all-dev libmariadb-dev
 ```
 
-Get started:
+## Get started:
 ------------
-Evaluation
-----------
-    Download the installer packages (*.gz) from folder /. This packages can be installed on CentOS
-    Follow the QuickStart guide (SWIFT_TLC_QuickStart.docx) to get it running
 
-Source Code
------------
-    Folder /TLC_ALL/Server contains all source code files
-    Run the script build_package.sh to build the binaries
+### Get involved:
+------------
+I am not a programmer and will be relying heavily on AI for this project. I welcome any and all help and feedback!
 
-More Information:
------------------
-  If you are interested in more detailed technical information please refer these documents:
-    SWIFT Technical Overview document,
-    SWIFT Tape Auditor Overview Document
+### Road Map:
+------------
+- Get a basic file system working using the 4 drives in my msl4048 tape library all mounted with ltfs.
+- Add the ability to mount all the tapes in the library and send mt commands to access tapes that are not currently loaded.
+- Add the meta directory to allow all the files in the library to be browsed even when they are not mounted with a user definable size to be stored.
+- Add the cache directory as a buffer for files being written to or read from tape. Add logic to allow a drive to be reserved for reading.
+- Add logic that will automatically move all contents of a tape to a new tape and reformat the original tape when a user definable amount of data has been deleted from the tape.
 
-Get involved:
--------------
-We hope by offering our SWIFT TLC as Open Source software that native nonproprietary tape storage support becomes a part of the OpenStack ecosystem.
-Everybody is highly invited to participate in this project and can join the development team.
+The goal is to use the ZFS file system to build the volume. The cache and special volumes being the cache and meta volumes. I don't know if this is possible but would be great if it is.
 
-Contact:
---------
-Andreas Kleber,
-andreas.kleber@bdt.de,
-+49 (151) 148650 65
+### Contact:
+------------
+mike@ciesielczyk.sk
