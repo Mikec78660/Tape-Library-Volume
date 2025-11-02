@@ -428,17 +428,17 @@ namespace bdt
         static fs::path folderMeta_;
         static fs::path folderCache_;
         static fs::path folderTape_;
-        static auto_ptr<Configure> configure_;
-        static auto_ptr<Throttle> throttle_;
-        static auto_ptr<MetaManager> meta_;
-        static auto_ptr<TapeManagerInterface> tape_;
-        static auto_ptr<CacheManager> cache_;
-        static auto_ptr<ReadManager> read_;
-        static auto_ptr<ScheduleInterface> schedule_;
-        static auto_ptr<tape::TapeLibraryManager> changer_;
+        static std::unique_ptr<Configure> configure_;
+        static std::unique_ptr<Throttle> throttle_;
+        static std::unique_ptr<MetaManager> meta_;
+        static std::unique_ptr<TapeManagerInterface> tape_;
+        static std::unique_ptr<CacheManager> cache_;
+        static std::unique_ptr<ReadManager> read_;
+        static std::unique_ptr<ScheduleInterface> schedule_;
+        static std::unique_ptr<tape::TapeLibraryManager> changer_;
 
         static vector<BackendTask *> tasks_;
-        static auto_ptr<boost::thread_group> taskGroup_;
+        static std::unique_ptr<boost::thread_group> taskGroup_;
 
         static ofstream logDebug_;
         static ofstream logInfo_;

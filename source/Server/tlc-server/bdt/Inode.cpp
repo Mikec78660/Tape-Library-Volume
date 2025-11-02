@@ -22,7 +22,11 @@
 #include "stdafx.h"
 #include "CacheManager.h"
 
-#include <attr/xattr.h>
+#ifndef ENOATTR
+#define ENOATTR ENODATA
+#endif
+
+#include <sys/xattr.h>
 
 
 namespace bdt
